@@ -41,6 +41,9 @@ bool parinfer_display_errors true
 declare-option -docstring "Currently Parinfer active mode" \
 str parinfer_current_mode
 
+declare-option -docstring "Currently Parinfer language (affects syntax)" \
+str parinfer_language clojure
+
 declare-option -hidden str parinfer_previous_text
 declare-option -hidden str parinfer_previous_cursor_char_column
 declare-option -hidden str parinfer_previous_cursor_line
@@ -99,7 +102,7 @@ parinfer -params ..2 %{
             # kak_opt_parinfer_previous_cursor_line,
             # kak_opt_parinfer_select_switches,
             # kak_selection
-            exec parinfer-rust --mode=$mode --input-format=kakoune --output-format=kakoune
+            exec parinfer-rust --mode=$mode --language=${kak_opt_parinfer_language} --input-format=kakoune --output-format=kakoune
         }
         evaluate-commands %{
             set-option buffer parinfer_previous_text %val{selection}
